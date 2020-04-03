@@ -24,16 +24,20 @@ export TLS_VERIFY=${TLS_VERIFY:-"may"}
 export DOLLAR='$'
 envsubst < /root/conf/postfix-main.cf > /etc/postfix/main.cf
 
+openssl dsaparam 1024 > /etc/postfix/dsa1024.pem
+openssl req -x509 -config /etc/postfix/config.conf  -nodes -days 3650 -newkey dsa:/etc/postfix/dsa1024.pem -out /etc/postfix/mycert.pem -keyout /etc/postfix/mykey.pem;ln  -s /etc/postfix/mycert.pem /etc/postfix/CAcert.pem
+ openssl req -x509 -config /etc/postfix/config.conf  -new -days 3650 -key /etc/postfix/mykey.pem -out /etc/postfix/mycert.pem;rm dsa1024.pem
+
 touch /etc/postfix/generic
-echo "postmaster:    root"  >  /etc/aliases
+echo "root@$HOSTNAME $SMTP_MAIL" > /etc/postfix/generic
+ln -s /etc/postfix/aliases /etc/aliases
 echo "[$SMTP_HOST]:$SMTP_PORT    $SMTP_LOGIN:$SMTP_PASSWORD" >  /etc/postfix/sasl_passwd
 
 
 # Generate default alias DB
 newaliases
 
-postmap  /etc/postfix/sasl_passwd
-postmap /etc/postfix/generic
+postmap /etc/postfix/sasl_passwd;postmap /etc/postfix/generic;postmap /etc/postfix/main.cf
 
 
 
