@@ -24,6 +24,11 @@ export TLS_VERIFY=${TLS_VERIFY:-"may"}
 export DOLLAR='$'
 envsubst < /root/conf/postfix-main.cf > /etc/postfix/main.cf
 
+touch /etc/postfix/generic
+echo "[$SMTP_HOST]:$SMTP_PORT    $SMTP_LOGIN:$SMTP_PASSWORD" >  /etc/postfix/sasl_passwd
+postmap  /etc/postfix/sasl_passwd
+postmap /etc/postfix/generic
+
 # Generate default alias DB
 newaliases
 
