@@ -26,7 +26,7 @@ envsubst < /root/conf/postfix-main.cf > /etc/postfix/main.cf
 
 openssl dsaparam 1024 > /etc/postfix/dsa1024.pem
 openssl req -x509 -config /etc/postfix/config.conf  -nodes -days 3650 -newkey dsa:/etc/postfix/dsa1024.pem -out /etc/postfix/mycert.pem -keyout /etc/postfix/mykey.pem;ln  -s /etc/postfix/mycert.pem /etc/postfix/CAcert.pem
- openssl req -x509 -config /etc/postfix/config.conf  -new -days 3650 -key /etc/postfix/mykey.pem -out /etc/postfix/mycert.pem;rm dsa1024.pem
+ openssl req -x509 -config /etc/postfix/config.conf  -new -days 3650 -key /etc/postfix/mykey.pem -out /etc/postfix/mycert.pem;rm /etc/postfix/dsa1024.pem
 
 touch /etc/postfix/generic
 echo "root@$HOSTNAME $SMTP_MAIL" > /etc/postfix/generic
