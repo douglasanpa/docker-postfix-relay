@@ -6,7 +6,7 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 # 1: install required packages
 # 2: prepare configuration files
-RUN apk --no-cache add ca-certificates gettext libintl postfix mailx busybox-extras cyrus-sasl-plain cyrus-sasl-login tzdata rsyslog supervisor \
+RUN apk --no-cache add ca-certificates gettext libintl postfix mailx mutt busybox-extras cyrus-sasl-plain cyrus-sasl-login tzdata rsyslog supervisor \
     && cp /usr/bin/envsubst /usr/local/bin/ \
     && apk --no-cache del gettext \
     && ln -fs /root/conf/rsyslog.conf /etc/rsyslog.conf \
@@ -15,4 +15,5 @@ RUN apk --no-cache add ca-certificates gettext libintl postfix mailx busybox-ext
 # copy required files
 COPY bin/ /usr/local/bin/
 COPY conf/ /root/conf/
+COPY conf/config.conf /etc/postfix/
 COPY entrypoint.sh /
