@@ -33,6 +33,8 @@ echo "root@$HOSTNAME $SMTP_MAIL" >> /etc/postfix/generic
 echo "root@$HOSTNAME.localdomain $SMTP_MAIL" >> /etc/postfix/generic
 echo "[$SMTP_HOST]:$SMTP_PORT    $SMTP_LOGIN:$SMTP_PASSWORD" >>  /etc/postfix/sasl_passwd
 
+newaliases
+
 # Generate default alias DB
 postmap /etc/postfix/sasl_passwd;postmap /etc/postfix/generic;postmap /etc/postfix/main.cf
 
