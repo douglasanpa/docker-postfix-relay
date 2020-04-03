@@ -1,5 +1,5 @@
 FROM alpine:3.11
-LABEL maintainer "Alex Simenduev <shamil.si@gmail.com>"
+LABEL maintainer "Alex Simenduev <douglasanpa@gmail.com>"
 
 EXPOSE 25
 ENTRYPOINT ["/entrypoint.sh"]
