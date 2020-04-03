@@ -1,45 +1,19 @@
-#
-# Just the bare minimal
-#
-
-# network bindings
-inet_interfaces = all
-inet_protocols = ipv4
-
-# general params
-compatibility_level = 1
-myhostname = $HOSTNAME
-mynetworks = 127.0.0.0/8 [::1]/128 $ACCEPTED_NETWORKS
+#SMTP relayhost
 relayhost = [$SMTP_HOST]:$SMTP_PORT
-
-# smtp-out params
-smtp_sasl_auth_enable = yes
-
-alias_maps = hash:/etc/aliases
-alias_database = hash:/etc/aliases
+## TLS Settings
 smtp_tls_loglevel = 1
-smtp_generic_maps = hash:/etc/postfix/generic
-smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
-smtp_sasl_security_options = noanonymous
-smtp_sasl_tls_security_options = noanonymous
 smtp_tls_CAfile = /etc/postfix/CAcert.pem
 smtp_tls_cert_file = /etc/postfix/mycert.pem
 smtp_tls_key_file = /etc/postfix/mykey.pem
+smtp_use_tls = $USE_TLS
 smtpd_tls_CAfile = /etc/postfix/CAcert.pem
 smtpd_tls_cert_file = /etc/postfix/mycert.pem
-smtpd_tls_key_file = /etc/postfix/mykey.
+smtpd_tls_key_file = /etc/postfix/mykey.pem
 smtpd_tls_received_header = yes
-smtp_tls_security_level = $TLS_VERIFY
-smtp_tls_session_cache_database = btree:${DOLLAR}{data_directory}/smtp_scache
-smtp_use_tls = $USE_TLS
-
-# RCPT TO restrictions
-smtpd_recipient_restrictions = check_recipient_access $RECIPIENT_RESTRICTIONS, reject
-
-# some tweaks
-biff = no
-delay_warning_time = 1h
-mailbox_size_limit = 0
-readme_directory = no
-recipient_delimiter = +
-smtputf8_enable = no
+# configuracao tls
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_sasl_tls_security_options = noanonymous
+#alias de mapeamento interno para externo
+smtp_generic_maps = hash:/etc/postfix/generic
