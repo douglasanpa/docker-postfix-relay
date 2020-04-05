@@ -13,7 +13,7 @@ mynetworks = 127.0.0.0/8 [::1]/128 $ACCEPTED_NETWORKS
 relayhost = [$SMTP_HOST]:$SMTP_PORT
 
 # smtp-out params
-smtp_sasl_type=cyrus
+smtp_sasl_type = cyrus
 smtp_sasl_auth_enable = yes
 smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
 smtp_sasl_security_options = noanonymous
