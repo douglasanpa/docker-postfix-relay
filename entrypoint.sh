@@ -31,6 +31,8 @@ openssl req -x509 -config /etc/postfix/config.conf  -new -days 3650 -key /etc/po
 touch /etc/postfix/generic
 echo "root@$HOSTNAME $SMTP_MAIL" >> /etc/postfix/generic
 echo "root@$HOSTNAME.localdomain $SMTP_MAIL" >> /etc/postfix/generic
+echo "@$HOSTNAME $SMTP_MAIL" >> /etc/postfix/generic
+echo "@$HOSTNAME.localdomain $SMTP_MAIL" >> /etc/postfix/generic
 echo "[$SMTP_HOST]:$SMTP_PORT    $SMTP_LOGIN:$SMTP_PASSWORD" >>  /etc/postfix/sasl_passwd
 
 newaliases
