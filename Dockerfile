@@ -7,6 +7,8 @@ ENV PATH /go/bin:$PATH
 
 EXPOSE 25
 ENTRYPOINT ["fileenv", "/entrypoint.sh"]
+HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=3 CMD netstat -an | fgrep 25 | fgrep -q LISTEN
+
 
 # 1: install required packages
 # 2: prepare configuration files
