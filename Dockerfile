@@ -12,10 +12,10 @@ HEALTHCHECK --interval=10s --timeout=5s --start-period=30s --retries=3 CMD netst
 
 # 1: install required packages
 # 2: prepare configuration files
-RUN apk --no-cache add ca-certificates gettext libintl postfix openssl cyrus-sasl-plain cyrus-sasl-login tzdata rsyslog supervisor git make musl-dev go  \
+RUN apk --no-cache add ca-certificates gettext libintl postfix openssl cyrus-sasl-plain cyrus-sasl-login tzdata rsyslog supervisor git make musl-dev go \
     && cp /usr/bin/envsubst /usr/local/bin/ \
     && apk --no-cache del gettext \
-    mkdir -p ${GOPATH}/src ${GOPATH}/bin && go get github.com/korylprince/fileenv &&\
+    && mkdir -p ${GOPATH}/src ${GOPATH}/bin && go get github.com/korylprince/fileenv \
     && ln -fs /root/conf/rsyslog.conf /etc/rsyslog.conf \
     && ln -fs /root/conf/supervisord.conf /etc/supervisord.conf
 
