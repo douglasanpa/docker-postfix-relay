@@ -34,6 +34,8 @@ echo "root@$HOSTNAME.localdomain $SMTP_MAIL" >> /etc/postfix/generic
 echo "@$HOSTNAME $SMTP_MAIL" >> /etc/postfix/generic
 echo "@$HOSTNAME.localdomain $SMTP_MAIL" >> /etc/postfix/generic
 echo "[$SMTP_HOST]:$SMTP_PORT    $SMTP_LOGIN:$SMTP_PASSWORD" >>  /etc/postfix/sasl_passwd
+echo "/.+/    $SMTP_MAIL" >> /etc/postfix/sender_canonical_maps
+echo "/From:.*/ REPLACE From: $SMTP_MAIL" >> /etc/postfix/header_check
 
 newaliases
 
