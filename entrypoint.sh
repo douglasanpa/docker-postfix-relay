@@ -18,6 +18,7 @@ export SMTP_HOST=${SMTP_HOST:-"email-smtp.us-east-1.amazonaws.com"}
 export SMTP_PORT=${SMTP_PORT:-"25"}
 export ACCEPTED_NETWORKS=${ACCEPTED_NETWORKS:-"192.168.0.0/16 172.16.0.0/12 10.0.0.0/8"}
 export USE_TLS=${USE_TLS:-"no"}
+export NO_REPLY_TEXT=${NO_REPLY_TEXT:-"NO REPLY THIS EMAIL"}
 export TLS_VERIFY=${TLS_VERIFY:-"may"}
 
 # Template
@@ -35,7 +36,7 @@ echo "@$HOSTNAME $SMTP_MAIL" >> /etc/postfix/generic
 echo "@$HOSTNAME.localdomain $SMTP_MAIL" >> /etc/postfix/generic
 echo "[$SMTP_HOST]:$SMTP_PORT    $SMTP_LOGIN:$SMTP_PASSWORD" >>  /etc/postfix/sasl_passwd
 echo "/.+/    $SMTP_MAIL" >> /etc/postfix/sender_canonical_maps
-echo "/From:.*/ REPLACE From: $SMTP_MAIL" >> /etc/postfix/header_check
+echo "/From:.*/ REPLACE From: $NO_REPLY_TEXT <$SMTP_MAIL>" >> /etc/postfix/header_check
 
 newaliases
 
