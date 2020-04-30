@@ -34,6 +34,11 @@ smtp_use_tls = $USE_TLS
 # RCPT TO restrictions
 #smtpd_recipient_restrictions = check_recipient_access $RECIPIENT_RESTRICTIONS, reject
 
+#FORCE MAIL FROM
+sender_canonical_classes = envelope_sender, header_sender
+sender_canonical_maps =  regexp:/etc/postfix/sender_canonical_maps
+smtp_header_checks = regexp:/etc/postfix/header_check
+
 # some tweaks
 biff = no
 delay_warning_time = 1h
